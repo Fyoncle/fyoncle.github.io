@@ -1,0 +1,15 @@
+---
+interface Props {
+  color?: string;
+  thickness?: string;
+}
+
+const {
+  color = "#323448",
+  thickness = "4px",
+} = Astro.props;
+---
+
+<hr
+  style={`border: 0; border-top: ${thickness} solid ${color};`}
+/>
