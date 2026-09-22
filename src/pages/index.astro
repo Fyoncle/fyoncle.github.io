@@ -30,7 +30,7 @@ const links = [
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{name}</title>
 
     <meta name="description" content="3D Artist and modpack developer from Türkiye." />
@@ -38,7 +38,7 @@ const links = [
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Fyoncle" />
     <meta property="og:description" content="3D Artist and modpack developer from Türkiye." />
-    <meta property="og:image" content="https://fyoncle.vercel.app//embed.png" />
+    <meta property="og:image" content="https://fyoncle.vercel.app/embed.png" />
     <meta property="og:url" content="https://fyoncle.vercel.app/" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -149,8 +149,16 @@ const links = [
   body {
     display: grid;
     place-items: center;
+
     min-height: 100vh;
+    min-height: 100dvh;
+
     padding: 2rem;
+    padding-top: max(2rem, env(safe-area-inset-top));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+
     background: var(--crust);
     color: var(--text);
     font-family: system-ui, sans-serif;
@@ -176,7 +184,7 @@ const links = [
     z-index: 1;
 
     width: min(90vw, 600px);
-    min-height: 600px;
+    min-height: auto;
 
     padding: 4.5rem 2rem 2rem;
 
@@ -291,15 +299,15 @@ const links = [
   }
 
   .extra a {
-  color: var(--mauve);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+    color: var(--mauve);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 
-.extra a:hover,
-.extra a:focus-visible {
-  color: var(--text);
-}
+  .extra a:hover,
+  .extra a:focus-visible {
+    color: var(--text);
+  }
 
   .artstation-link {
     width: 100%;
@@ -460,42 +468,42 @@ const links = [
   });
 
   const heartLink = document.querySelector(".extra a") as HTMLElement | null;
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-function spawnHeart() {
-  if (!heartLink) return;
-  const r = heartLink.getBoundingClientRect();
-  const heart = document.createElement("span");
-  heart.textContent = "♥";
-  heart.setAttribute("aria-hidden", "true");
-  heart.style.cssText = `position:fixed;left:${r.left + Math.random() * r.width}px;top:${r.top}px;color:#c6a0f6;font-size:${10 + Math.random() * 10}px;pointer-events:none;z-index:10;`;
-  document.body.appendChild(heart);
+  function spawnHeart() {
+    if (!heartLink) return;
+    const r = heartLink.getBoundingClientRect();
+    const heart = document.createElement("span");
+    heart.textContent = "♥";
+    heart.setAttribute("aria-hidden", "true");
+    heart.style.cssText = `position:fixed;left:${r.left + Math.random() * r.width}px;top:${r.top}px;color:#c6a0f6;font-size:${10 + Math.random() * 10}px;pointer-events:none;z-index:10;`;
+    document.body.appendChild(heart);
 
-  const drift = (Math.random() - 0.5) * 40;
-  heart.animate(
-    [
-      { transform: "translate(0, 0)", opacity: 1 },
-      { transform: `translate(${drift}px, -60px)`, opacity: 0 },
-    ],
-    { duration: 1000, easing: "ease-out" }
-  ).onfinish = () => heart.remove();
-}
+    const drift = (Math.random() - 0.5) * 40;
+    heart.animate(
+      [
+        { transform: "translate(0, 0)", opacity: 1 },
+        { transform: `translate(${drift}px, -60px)`, opacity: 0 },
+      ],
+      { duration: 1000, easing: "ease-out" }
+    ).onfinish = () => heart.remove();
+  }
 
-let heartTimer: number | undefined;
+  let heartTimer: number | undefined;
 
-function startHearts() {
-  if (reduceMotion.matches || heartTimer) return;
-  spawnHeart();
-  heartTimer = window.setInterval(spawnHeart, 150);
-}
+  function startHearts() {
+    if (reduceMotion.matches || heartTimer) return;
+    spawnHeart();
+    heartTimer = window.setInterval(spawnHeart, 150);
+  }
 
-function stopHearts() {
-  window.clearInterval(heartTimer);
-  heartTimer = undefined;
-}
+  function stopHearts() {
+    window.clearInterval(heartTimer);
+    heartTimer = undefined;
+  }
 
-heartLink?.addEventListener("mouseenter", startHearts);
-heartLink?.addEventListener("mouseleave", stopHearts);
-heartLink?.addEventListener("focus", startHearts);
-heartLink?.addEventListener("blur", stopHearts);
+  heartLink?.addEventListener("mouseenter", startHearts);
+  heartLink?.addEventListener("mouseleave", stopHearts);
+  heartLink?.addEventListener("focus", startHearts);
+  heartLink?.addEventListener("blur", stopHearts);
 </script>
