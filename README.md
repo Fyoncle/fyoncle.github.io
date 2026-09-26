@@ -1,1 +1,1 @@
-Repository that powers https://fyoncle.vercel.app/
+Repository that powers fyoncle.github.io
