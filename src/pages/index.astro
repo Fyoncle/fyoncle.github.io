@@ -468,7 +468,6 @@ const links = [
   });
 
   const heartLink = document.querySelector(".extra a") as HTMLElement | null;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function spawnHeart() {
     if (!heartLink) return;
@@ -476,7 +475,7 @@ const links = [
     const heart = document.createElement("span");
     heart.textContent = "♥";
     heart.setAttribute("aria-hidden", "true");
-    heart.style.cssText = `position:fixed;left:${r.left + Math.random() * r.width}px;top:${r.top}px;color:#c6a0f6;font-size:${10 + Math.random() * 10}px;pointer-events:none;z-index:10;`;
+    heart.style.cssText = `position:fixed;left:${r.left + Math.random() * r.width}px;top:${r.top}px;color:#c6a0f6;font-size:${10 + Math.random() * 10}px;line-height:1;display:inline-block;padding:0.4em;overflow:visible;pointer-events:none;z-index:10;`;
     document.body.appendChild(heart);
 
     const drift = (Math.random() - 0.5) * 40;
@@ -492,7 +491,7 @@ const links = [
   let heartTimer: number | undefined;
 
   function startHearts() {
-    if (reduceMotion.matches || heartTimer) return;
+    if (heartTimer) return;
     spawnHeart();
     heartTimer = window.setInterval(spawnHeart, 150);
   }
